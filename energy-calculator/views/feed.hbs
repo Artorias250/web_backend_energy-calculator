@@ -1,0 +1,46 @@
+{{#if redirect}}
+    <meta http-equiv="refresh" content="0; url={{redirect}}">
+{{else}}
+    {{> main title=title}}
+
+    <div class="feed-container">
+        <div class="video-wrapper">
+            <video
+                src="{{appliance.videoUrl}}"
+                autoplay
+                loop
+                muted
+                playsinline
+                class="feed-video"
+            ></video>
+
+            <div class="feed-info-overlay">
+                <h3 class="device-title">{{appliance.deviceName}}</h3>
+                <div class="device-specs">
+                    <span> {{appliance.powerWatts}} Вт</span>
+                    <span> {{appliance.category}}</span>
+                </div>
+                <details class="desc-details">
+                    <summary>{{appliance.description}}</summary>
+                    <p>{{appliance.fullDescription}}</p>
+                </details>
+            </div>
+
+            <div class="bottom-sheet">
+                <!-- Ряд кнопок -->
+                <div class="action-row">
+                    <a href="/feed/{{appliance.id}}?next=true" class="btn-primary">
+                        Следующий товар
+                    </a>
+
+                    <button class="btn-like">
+                        <span class="like-icon">♡</span>
+                        <span class="like-count">{{appliance.likesCount}}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{> navigation}}
+{{/if}}

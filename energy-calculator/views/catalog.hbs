@@ -1,0 +1,43 @@
+{{> main title=title}}
+
+<div class="feed-container">
+    <div class="mobile-wrapper">
+        <div class="catalog-content">
+            <h2 class="catalog-title">Каталог приборов</h2>
+
+            <form action="/catalog" method="GET" class="filter-form">
+                <input
+                    type="number"
+                    name="power_min"
+                    placeholder="Мин. мощность (Вт)"
+                    value="{{powerMin}}"
+                    class="filter-input"
+                >
+                <button type="submit" class="filter-btn">ОК</button>
+            </form>
+
+            <div class="catalog-grid">
+                {{#each appliances}}
+                    <div class="catalog-card">
+                        <div class="card-image-box">
+                            <img src="{{this.imageUrl}}" alt="{{this.deviceName}}" class="card-image" />
+                        </div>
+                        <div class="card-info">
+                            <a href="/feed/{{this.id}}" class="card-title-link">
+                                {{this.deviceName}}
+                            </a>
+                            <div class="card-footer">
+                                <span class="card-power">Мощность: {{this.powerWatts}} Вт</span>
+                                <span class="card-interest">Интерес: {{this.likesCount}}</span>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="catalog-bottom-sheet">
+            {{> navigation}}
+        </div>
+    </div>
+</div>
