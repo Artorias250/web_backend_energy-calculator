@@ -1,0 +1,103 @@
+{{> main title=title}}
+
+<div class="feed-container">
+    <div class="mobile-wrapper">
+        <div class="draft-content">
+            <h2 class="draft-title">Черновик прибора</h2>
+
+            {{#if hasDraft}}
+                <!-- ЭТАП 2: Заполнение данных и кнопка Опубликовать -->
+                <form class="draft-form" action="/draft/publish" method="POST">
+
+                    <!-- Поле Фотографии -->
+                    <div class="form-group">
+                        <label>Фотография (по умолчанию)</label>
+                        <input type="file" class="form-file-input" disabled />
+                        <div class="preview-box">
+                            <img src="{{appliance.imageUrl}}"
+                                 alt="Черновое фото"
+                                 class="media-preview-large" />
+                        </div>
+                    </div>
+
+                    <!-- Поле Видеозаписи -->
+                    <div class="form-group">
+                        <label>Видеозапись (по умолчанию)</label>
+                        <input type="file" class="form-file-input" disabled />
+                        <div class="preview-box">
+                            <video src="{{appliance.videoUrl}}"
+                                   autoplay muted loop playsinline controls
+                                   class="media-preview-large"></video>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Название устройства</label>
+                        <input type="text" name="deviceName" value="{{appliance.deviceName}}" class="form-input" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Описание</label>
+                        <textarea name="description" class="form-textarea" rows="3" placeholder="Введите описание">{{appliance.description}}</textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group flex-1">
+                            <label>Мощность (Вт)</label>
+                            <input type="number" name="powerWatts" value="{{#if appliance.powerWatts}}{{appliance.powerWatts}}{{else}}0{{/if}}" class="form-input" placeholder="0" required>
+                        </div>
+
+                        <div class="form-group flex-1">
+                            <label>Мин. температура (°C)</label>
+                            <input type="number" name="minTemperature" value="{{#if appliance.minTemperature}}{{appliance.minTemperature}}{{else}}10{{/if}}" class="form-input" placeholder="10" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="nav-btn" style="width: 100%; border: none; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 8px;">
+                        Опубликовать
+                    </button>
+                </form>
+
+            {{else}}
+                <!-- ЭТАП 1: Создание черновика (Кнопка Далее) -->
+                <form class="draft-form" action="/draft/next" method="POST">
+
+                    <!-- Поле Фотографии -->
+                    <div class="form-group">
+                        <label>Фотография</label>
+                        <input type="file" class="form-file-input" disabled />
+                        <div class="preview-box">
+                            <img src="http://localhost:9000/appliances/kettle.png"
+                                 alt="Черновое фото"
+                                 class="media-preview-large" />
+                        </div>
+                    </div>
+
+                    <!-- Поле Видеозаписи -->
+                    <div class="form-group">
+                        <label>Видеозапись</label>
+                        <input type="file" class="form-file-input" disabled />
+                        <div class="preview-box">
+                            <video src="http://localhost:9000/appliances/kettle.mp4"
+                                   autoplay muted loop playsinline controls
+                                   class="media-preview-large"></video>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Название устройства</label>
+                        <input type="text" name="deviceName" class="form-input" placeholder="Введите название" required>
+                    </div>
+
+                    <button type="submit" class="nav-btn" style="width: 100%; border: none; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 8px;">
+                        Далее
+                    </button>
+                </form>
+            {{/if}}
+        </div>
+
+        <div class="catalog-bottom-sheet">
+            {{> navigation}}
+        </div>
+    </div>
+</div>

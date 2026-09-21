@@ -1,0 +1,84 @@
+{{> main title=title}}
+
+<div class="feed-container">
+    <div class="mobile-wrapper">
+        <div class="catalog-content">
+            <h2 class="catalog-title">Каталог приборов</h2>
+
+            <form class="filter-form" action="/catalog" method="GET">
+                <div class="filter-input-row">
+                    <input
+                        type="text"
+                        id="powerValueDisplay"
+                        class="filter-input"
+                        value="{{#if minPower}}Мин. мощность: {{minPower}} Вт{{else}}Мин. мощность: 0 Вт{{/if}}"
+                        readonly
+                    />
+                    <button type="submit" class="btn-filter-ok">ОК</button>
+                </div>
+
+                <input
+                    type="hidden"
+                    name="minPower"
+                    id="powerHiddenInput"
+                    value="{{#if minPower}}{{minPower}}{{else}}0{{/if}}"
+                />
+
+                <div class="filter-slider-row">
+                    <input
+                        type="range"
+                        id="powerRange"
+                        class="filter-range-slider"
+                        min="0"
+                        max="3000"
+                        step="50"
+                        value="{{#if minPower}}{{minPower}}{{else}}0{{/if}}"
+                        oninput="
+                            document.getElementById('powerValueDisplay').value = 'Мин. мощность: ' + this.value + ' Вт';
+                            document.getElementById('powerHiddenInput').value = this.value;
+                        "
+                    />
+                </div>
+            </form>
+
+            <div class="catalog-grid">
+            {{#each appliances}}
+                <div class="catalog-card">
+                    <div class="card-image-box">
+                        <img src="{{this.imageUrl}}" alt="{{this.deviceName}}" class="card-image" />
+                    </div>
+                    <div class="card-info">
+                        <a href="/feed/{{this.id}}" class="card-title-link">
+                            {{this.deviceName}}
+                        </a>
+
+                        <!-- Сохраняем исходные поля мощности и мин. температуры -->
+                        <div class="card-footer">
+                            <span class="card-power">Мощность: {{this.powerWatts}} Вт</span>
+                            <span class="card-interest">Мин. темп: {{this.minTemperature}} °C</span>
+                        </div>
+
+                        <!-- Добавляем надпись "Интерес" строкой ниже слева -->
+                        <div class="card-interest-row" style="margin-top: 4px; text-align: left;">
+                            <span class="card-interest" style="font-size: 0.85rem; color: #555;">
+                                Интерес: {{this.likesCount}}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Форма логического удаления (Метод 6 - POST) -->
+                    <form action="/appliances/delete" method="POST" class="delete-card-form" style="padding: 0 10px 10px 10px;">
+                        <input type="hidden" name="id" value="{{this.id}}">
+                        <button type="submit" class="btn-delete" style="width: 100%; background: #ff4d4f; color: #fff; border: none; padding: 6px; border-radius: 4px; cursor: pointer;">
+                            Удалить
+                        </button>
+                    </form>
+                </div>
+            {{/each}}
+        </div>
+
+        <div class="catalog-bottom-sheet">
+            {{> navigation}}
+        </div>
+    </div>
+</div>
