@@ -5,6 +5,7 @@
 
     <div class="feed-container">
         <div class="video-wrapper">
+            <!-- Видеоплеер -->
             <video
                 src="{{appliance.videoUrl}}"
                 autoplay
@@ -14,33 +15,54 @@
                 class="feed-video"
             ></video>
 
+            <!-- Оверлей с описанием слева внизу -->
             <div class="feed-info-overlay">
                 <h3 class="device-title">{{appliance.deviceName}}</h3>
-                <div class="device-specs">
-                    <span> {{appliance.powerWatts}} Вт</span>
-                    <span> {{appliance.category}}</span>
+
+                <div class="feed-desc-container">
+                    <input type="checkbox" id="desc-toggle-{{appliance.id}}" class="desc-toggle-checkbox">
+                    <p class="feed-full-desc">
+                        {{appliance.description}}
+                    </p>
+                    <label for="desc-toggle-{{appliance.id}}" class="btn-more"></label>
                 </div>
-                <details class="desc-details">
-                    <summary>{{appliance.description}}</summary>
-                    <p>{{appliance.fullDescription}}</p>
-                </details>
             </div>
 
-            <div class="bottom-sheet">
-                <!-- Ряд кнопок -->
-                <div class="action-row">
-                    <a href="/feed/{{appliance.id}}?next=true" class="btn-primary">
-                        Следующий товар
-                    </a>
-
-                    <button class="btn-like">
-                        <span class="like-icon">♡</span>
-                        <span class="like-count">{{appliance.likesCount}}</span>
-                    </button>
+            <!-- Правая вертикальная панель поверх видео -->
+            <div class="feed-sidebar">
+                <!-- Мощность -->
+                <div class="sidebar-item">
+                    <span class="sidebar-label">МОЩНОСТЬ</span>
+                    <span class="sidebar-value">{{appliance.powerWatts}} Вт</span>
                 </div>
+
+                <!-- Температура -->
+                <div class="sidebar-item">
+                    <span class="sidebar-label">ОБЪЁМ / ТЕМП</span>
+                    <span class="sidebar-value">{{appliance.minTemperature}} °C</span>
+                </div>
+
+                <!-- Кнопка Лайк в виде иконки-сердца -->
+                <button type="button" class="sidebar-btn btn-like-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="#e74c3c">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                    <span class="sidebar-btn-label">{{appliance.likes.length}}</span>
+                </button>
+
+                <!-- Кнопка Следующее видео в виде иконки-треугольника -->
+                <a href="/feed/{{appliance.id}}?next=true" class="sidebar-btn btn-next-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="#ffffff">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    <span class="sidebar-btn-label">ДАЛЕЕ</span>
+                </a>
+            </div>
+
+            <!-- Стандартная панель навигации (как на каталоге и в черновике) -->
+            <div class="catalog-bottom-sheet">
+                {{> navigation}}
             </div>
         </div>
     </div>
-
-    {{> navigation}}
 {{/if}}

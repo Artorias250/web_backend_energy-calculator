@@ -9,11 +9,10 @@ export class ApplianceService {
     {
       id: 1,
       deviceName: 'Электрический чайник',
-      description: 'Стеклянный чайник с быстрой закипаемостью',
-      fullDescription:
-        'Электрический чайник объемом 1.7 л с корпусом из нержавеющей стали, автоотключением при закипании и защитой от включения без воды.',
+      description:
+        'Стеклянный чайник с быстрым закипанием и стильной LED-подсветкой. Оснащен функцией автоматического отключения при закипании и защитой от включения без воды.',
       powerWatts: 2200,
-      category: 'Кухонная техника',
+      minTemperature: 10,
       image: 'kettle.png',
       video: 'kettle.mp4',
       status: 'published',
@@ -22,11 +21,10 @@ export class ApplianceService {
     {
       id: 2,
       deviceName: 'Микроволновка',
-      description: 'Компактная микроволновая печь с грилем',
-      fullDescription:
-        'Микроволновая печь объемом 20 литров с несколькими режимами разморозки и автоматического приготовления пищи.',
+      description:
+        'Компактная микроволновая печь с мощным грилем и встроенными программами авторазморозки. Равномерный прогрев блюд и удобное сенсорное управление.',
       powerWatts: 800,
-      category: 'Кухонная техника',
+      minTemperature: 10,
       image: 'microwave.png',
       video: 'microwave.mp4',
       status: 'published',
@@ -35,11 +33,10 @@ export class ApplianceService {
     {
       id: 3,
       deviceName: 'Утюг',
-      description: 'Паровой утюг с керамической подошвой',
-      fullDescription:
-        'Мощный паровой утюг с системой защиты от накипи, функциями вертикального отпаривания и противокапельной системой.',
+      description:
+        'Паровой утюг с прочной керамической подошвой и функцией вертикального отпаривания. Эффективно разглаживает сложные складки и защищен от накипи.',
       powerWatts: 2000,
-      category: 'Уход за одеждой',
+      minTemperature: 10,
       image: 'flatiron.png',
       video: 'flatiron.mp4',
       status: 'published',
@@ -48,11 +45,10 @@ export class ApplianceService {
     {
       id: 4,
       deviceName: 'Холодильник',
-      description: 'Двухкамерный холодильник No Frost',
-      fullDescription:
-        'Вместительный двухкамерный холодильник с системой сухой заморозки No Frost, инверторным компрессором и зонами свежести.',
+      description:
+        'Двухкамерный холодильник с системой No Frost, исключающей образование наледи. Высокий класс энергоэффективности и зона свежести для овощей.',
       powerWatts: 200,
-      category: 'Крупная бытовая техника',
+      minTemperature: 10,
       image: 'fridge.png',
       video: 'fridge.mp4',
       status: 'published',
@@ -61,11 +57,10 @@ export class ApplianceService {
     {
       id: 5,
       deviceName: 'Вентилятор',
-      description: 'Напольный вентилятор с пультом ДУ',
-      fullDescription:
-        'Тихий напольный вентилятор с регулировкой высоты, 3 скоростями обдува, таймером и поворотным механизмом на 90 градусов.',
+      description:
+        'Тихий напольный вентилятор с удобным пультом ДУ и несколькими скоростными режимами. Автоматический поворот корпуса обеспечивает быстрое охлаждение всей комнаты.',
       powerWatts: 45,
-      category: 'Климатическая техника',
+      minTemperature: 10,
       image: 'fan.png',
       video: 'fan.mp4',
       status: 'published',
@@ -75,21 +70,19 @@ export class ApplianceService {
       id: 6,
       deviceName: 'Черновой прибор',
       description: 'Новое устройство в разработке',
-      fullDescription: 'Черновое описание прибора для страницы редактирования.',
       powerWatts: 500,
-      category: 'Разное',
-      image: 'draft.png',
-      video: 'draft.mp4',
-      status: 'draft', // Единственный черновик по ТЗ
+      minTemperature: 10,
+      image: 'kettle.png',
+      video: 'kettle.mp4',
+      status: 'draft',
       likes: [],
     },
     {
       id: 7,
       deviceName: 'Удаленный обогреватель',
       description: 'Удаленная модель',
-      fullDescription: 'Данный прибор не отображается в каталоге.',
       powerWatts: 1500,
-      category: 'Климат',
+      minTemperature: 10,
       image: 'heater.png',
       video: 'heater.mp4',
       status: 'deleted', // Удаленный прибор (не отображается)

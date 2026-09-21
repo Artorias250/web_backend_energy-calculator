@@ -42,15 +42,18 @@ export class ApplianceController {
 
   @Get('catalog')
   @Render('catalog')
-  getCatalog(@Query('power_min') powerMin?: string) {
-    const minVal = powerMin ? parseInt(powerMin, 10) : undefined;
-    const data = this.applianceService.getCatalog(minVal);
+  getCatalog(@Query('minPower') minPower?: string) {
+    // Преобразуем входящий параметр в число
+    const powerNum =
+      minPower !== undefined && minPower !== '' ? Number(minPower) : 0;
+
+    // Вызываем готовый метод сервиса getCatalog, передавая powerNum
+    const catalogData = this.applianceService.getCatalog(powerNum);
 
     return {
-      title: 'Плитка приборов',
-      isCatalog: true,
-      powerMin: powerMin || '',
-      ...data,
+      title: 'Каталог приборов',
+      appliances: catalogData.appliances,
+      minPower: powerNum,
     };
   }
 }

@@ -5,16 +5,44 @@
         <div class="catalog-content">
             <h2 class="catalog-title">Каталог приборов</h2>
 
-            <form action="/catalog" method="GET" class="filter-form">
+            <form class="filter-form" action="/catalog" method="GET">
+            <!-- Текстовое поле только для отображения (без атрибута name) -->
+            <div class="filter-input-row">
                 <input
-                    type="number"
-                    name="power_min"
-                    placeholder="Мин. мощность (Вт)"
-                    value="{{powerMin}}"
+                    type="text"
+                    id="powerValueDisplay"
                     class="filter-input"
-                >
-                <button type="submit" class="filter-btn">ОК</button>
-            </form>
+                    value="{{#if minPower}}Мин. мощность: {{minPower}} Вт{{else}}Мин. мощность: 0 Вт{{/if}}"
+                    readonly
+                />
+                <button type="submit" class="btn-filter-ok">ОК</button>
+            </div>
+
+            <!-- Скрытое поле, отправляющее ЧИСЛО в query-параметрах (?minPower=...) -->
+            <input
+                type="hidden"
+                name="minPower"
+                id="powerHiddenInput"
+                value="{{#if minPower}}{{minPower}}{{else}}0{{/if}}"
+            />
+
+            <!-- Ползунок слайдера -->
+            <div class="filter-slider-row">
+                <input
+                    type="range"
+                    id="powerRange"
+                    class="filter-range-slider"
+                    min="0"
+                    max="3000"
+                    step="50"
+                    value="{{#if minPower}}{{minPower}}{{else}}0{{/if}}"
+                    oninput="
+                        document.getElementById('powerValueDisplay').value = 'Мин. мощность: ' + this.value + ' Вт';
+                        document.getElementById('powerHiddenInput').value = this.value;
+                    "
+                />
+            </div>
+        </form>
 
             <div class="catalog-grid">
                 {{#each appliances}}
@@ -28,7 +56,7 @@
                             </a>
                             <div class="card-footer">
                                 <span class="card-power">Мощность: {{this.powerWatts}} Вт</span>
-                                <span class="card-interest">Интерес: {{this.likesCount}}</span>
+                                <span class="card-interest">Мин. темп: {{this.minTemperature}} °C</span>
                             </div>
                         </div>
                     </div>
