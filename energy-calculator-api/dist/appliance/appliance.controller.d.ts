@@ -1,0 +1,93 @@
+import { ApplianceService } from './appliance.service';
+export declare class ApplianceController {
+    private readonly applianceService;
+    constructor(applianceService: ApplianceService);
+    getCatalog(search?: string, minPower?: string): Promise<{
+        title: string;
+        isCatalog: boolean;
+        appliances: {
+            id: number;
+            deviceName: string;
+            description: string | null;
+            imageUrl: string;
+            videoUrl: string;
+            likes: import("../entities/like.entity").Like[];
+            likesCount: number;
+            applianceId: number;
+            applianceName: string;
+            applianceDescription: string | null;
+            publicationStatus: "draft" | "published" | "deleted";
+            powerWatts: number | null;
+            minTemperature: number | null;
+            createdAt: Date | null;
+            formattedAt: Date | null;
+            completedAt: Date | null;
+            creatorId: number;
+            moderatorId: number | null;
+            creator: import("../entities/user.entity").User;
+            moderator: import("../entities/user.entity").User | null;
+        }[];
+        search: string;
+        minPower: number;
+    }>;
+    getFeed(id: number, next?: string): Promise<{
+        appliance: {
+            id: number;
+            deviceName: string;
+            description: string | null;
+            imageUrl: string;
+            videoUrl: string;
+            likes: import("../entities/like.entity").Like[];
+            likesCount: number;
+            applianceId: number;
+            applianceName: string;
+            applianceDescription: string | null;
+            publicationStatus: "draft" | "published" | "deleted";
+            powerWatts: number | null;
+            minTemperature: number | null;
+            createdAt: Date | null;
+            formattedAt: Date | null;
+            completedAt: Date | null;
+            creatorId: number;
+            moderatorId: number | null;
+            creator: import("../entities/user.entity").User;
+            moderator: import("../entities/user.entity").User | null;
+        };
+        nextId: number;
+        hasNext: boolean;
+        title: string;
+        isFeed: boolean;
+    }>;
+    getDraft(): Promise<{
+        title: string;
+        isDraft: boolean;
+        appliance: {
+            id: number;
+            deviceName: string;
+            description: string | null;
+            imageUrl: string;
+            videoUrl: string;
+            likes: import("../entities/like.entity").Like[];
+            likesCount: number;
+            applianceId: number;
+            applianceName: string;
+            applianceDescription: string | null;
+            publicationStatus: "draft" | "published" | "deleted";
+            powerWatts: number | null;
+            minTemperature: number | null;
+            createdAt: Date | null;
+            formattedAt: Date | null;
+            completedAt: Date | null;
+            creatorId: number;
+            moderatorId: number | null;
+            creator: import("../entities/user.entity").User;
+            moderator: import("../entities/user.entity").User | null;
+        } | null;
+        hasDraft: boolean;
+    }>;
+    createDraft(deviceName: string): Promise<void>;
+    publishDraft(description: string, powerWatts: string, minTemperature: string): Promise<{
+        url: string;
+    }>;
+    deleteAppliance(id: string): Promise<void>;
+}

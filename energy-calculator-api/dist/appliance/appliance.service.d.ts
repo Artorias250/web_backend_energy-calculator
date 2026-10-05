@@ -1,0 +1,85 @@
+import { Repository } from 'typeorm';
+import { Appliance } from '../entities/appliance.entity';
+export declare class ApplianceService {
+    private readonly applianceRepository;
+    constructor(applianceRepository: Repository<Appliance>);
+    private formatAppliance;
+    private publishedFeedQuery;
+    private findNextPublished;
+    getCatalog(search?: string, minPower?: number): Promise<{
+        appliances: {
+            id: number;
+            deviceName: string;
+            description: string | null;
+            imageUrl: string;
+            videoUrl: string;
+            likes: import("../entities/like.entity").Like[];
+            likesCount: number;
+            applianceId: number;
+            applianceName: string;
+            applianceDescription: string | null;
+            publicationStatus: "draft" | "published" | "deleted";
+            powerWatts: number | null;
+            minTemperature: number | null;
+            createdAt: Date | null;
+            formattedAt: Date | null;
+            completedAt: Date | null;
+            creatorId: number;
+            moderatorId: number | null;
+            creator: import("../entities/user.entity").User;
+            moderator: import("../entities/user.entity").User | null;
+        }[];
+        totalCount: number;
+    }>;
+    getFeedAppliance(id: number, next?: boolean): Promise<{
+        appliance: {
+            id: number;
+            deviceName: string;
+            description: string | null;
+            imageUrl: string;
+            videoUrl: string;
+            likes: import("../entities/like.entity").Like[];
+            likesCount: number;
+            applianceId: number;
+            applianceName: string;
+            applianceDescription: string | null;
+            publicationStatus: "draft" | "published" | "deleted";
+            powerWatts: number | null;
+            minTemperature: number | null;
+            createdAt: Date | null;
+            formattedAt: Date | null;
+            completedAt: Date | null;
+            creatorId: number;
+            moderatorId: number | null;
+            creator: import("../entities/user.entity").User;
+            moderator: import("../entities/user.entity").User | null;
+        };
+        nextId: number;
+        hasNext: boolean;
+    }>;
+    getDraftForUser(): Promise<{
+        id: number;
+        deviceName: string;
+        description: string | null;
+        imageUrl: string;
+        videoUrl: string;
+        likes: import("../entities/like.entity").Like[];
+        likesCount: number;
+        applianceId: number;
+        applianceName: string;
+        applianceDescription: string | null;
+        publicationStatus: "draft" | "published" | "deleted";
+        powerWatts: number | null;
+        minTemperature: number | null;
+        createdAt: Date | null;
+        formattedAt: Date | null;
+        completedAt: Date | null;
+        creatorId: number;
+        moderatorId: number | null;
+        creator: import("../entities/user.entity").User;
+        moderator: import("../entities/user.entity").User | null;
+    } | null>;
+    createOrUpdateDraft(applianceName: string): Promise<Appliance>;
+    publishDraft(description: string, powerWatts: number, minTemperature: number): Promise<Appliance>;
+    deleteApplianceRaw(id: number): Promise<void>;
+}
