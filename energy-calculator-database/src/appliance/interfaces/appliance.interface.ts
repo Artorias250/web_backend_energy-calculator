@@ -1,14 +1,13 @@
 export interface Appliance {
-  id: number;
-  title: string;
-  description: string;
-  powerWatts: number;
-  minTemperature: number;
-  imageUrl: string;
-  videoUrl: string;
-  status: 'draft' | 'published' | 'deleted';
-  createdAt?: Date;
-  formattedAt?: Date;
+  applianceId: number;
+  applianceName: string;
+  applianceDescription: string | null;
+  powerWatts: number | null;
+  minTemperature: number | null;
+  imageUrl: string | null;
+  videoUrl: string | null;
+  publicationStatus: 'draft' | 'published' | 'deleted';
+  formattedAt?: Date | null;
   creatorId?: number;
   likesCount?: number;
 }

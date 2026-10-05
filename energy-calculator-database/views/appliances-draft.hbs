@@ -7,7 +7,7 @@
 
             {{#if hasDraft}}
                 <!-- ЭТАП 2: Заполнение данных и кнопка Опубликовать -->
-                <form class="draft-form" action="/draft/publish" method="POST">
+                <form class="draft-form" action="/appliances-draft/publish" method="POST">
 
                     <!-- Поле Фотографии -->
                     <div class="form-group">
@@ -60,14 +60,14 @@
 
             {{else}}
                 <!-- ЭТАП 1: Создание черновика (Кнопка Далее) -->
-                <form class="draft-form" action="/draft/next" method="POST">
+                <form class="draft-form" action="/appliances-draft/next" method="POST">
 
                     <!-- Поле Фотографии -->
                     <div class="form-group">
                         <label>Фотография</label>
                         <input type="file" class="form-file-input" disabled />
                         <div class="preview-box">
-                            <img src="http://localhost:9000/appliances/kettle.png"
+                            <img src="/media/default.png"
                                  alt="Черновое фото"
                                  class="media-preview-large" />
                         </div>
@@ -78,7 +78,7 @@
                         <label>Видеозапись</label>
                         <input type="file" class="form-file-input" disabled />
                         <div class="preview-box">
-                            <video src="http://localhost:9000/appliances/kettle.mp4"
+                            <video src="/media/default.mp4"
                                    autoplay muted loop playsinline controls
                                    class="media-preview-large"></video>
                         </div>

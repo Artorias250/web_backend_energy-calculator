@@ -15,9 +15,8 @@ import { ApplianceService } from './appliance.service';
 export class ApplianceController {
   constructor(private readonly applianceService: ApplianceService) {}
 
-  // Метод 1 (GET): Главная страница каталога с поиском
-  @Get('catalog')
-  @Render('catalog')
+  @Get('appliances-catalog')
+  @Render('appliances-catalog')
   async getCatalog(
     @Query('search') search?: string,
     @Query('minPower') minPower?: string,
@@ -31,6 +30,7 @@ export class ApplianceController {
 
     return {
       title: 'Каталог приборов',
+      isCatalog: true,
       appliances: catalogData.appliances,
       search: search || '',
       minPower: powerNum,
@@ -38,8 +38,8 @@ export class ApplianceController {
   }
 
   // Метод 2 (GET): Просмотр карточки
-  @Get('feed/:id')
-  @Render('feed')
+  @Get('appliances-feed/:id')
+  @Render('appliances-feed')
   async getFeed(
     @Param('id', ParseIntPipe) id: number,
     @Query('next') next?: string,
@@ -55,8 +55,8 @@ export class ApplianceController {
   }
 
   // Метод 3 (GET): Открытие черновика
-  @Get('draft')
-  @Render('draft')
+  @Get('appliances-draft')
+  @Render('appliances-draft')
   async getDraft() {
     const draft = await this.applianceService.getDraftForUser(1);
 
@@ -71,16 +71,15 @@ export class ApplianceController {
   }
 
   // Метод 4 (POST): Нажатие кнопки "Далее" (Создание/Переход)
-  @Post('draft/next')
-  @Redirect('/draft', 302)
+  @Post('appliances-draft/next')
+  @Redirect('/appliances-draft', 302)
   async createDraft(@Body('deviceName') deviceName: string) {
     await this.applianceService.createOrUpdateDraft(deviceName, 1);
   }
 
   // Метод 5 (POST): Нажатие кнопки "Опубликовать"
-  // Метод 5 (POST): Нажатие кнопки "Опубликовать"
-  @Post('draft/publish')
-  @Redirect('/catalog', 302)
+  @Post('appliances-draft/publish')
+  @Redirect('/appliances-catalog', 302)
   async publishDraft(
     @Body('description') description: string,
     @Body('powerWatts') powerWatts: string,
@@ -94,13 +93,13 @@ export class ApplianceController {
     );
 
     return {
-      url: `/feed/${published.id}`, // Используем ключ url для NestJS @Redirect
+      url: `/appliances-feed/${published.applianceId}`,
     };
   }
 
   // Метод 6 (POST): Логическое удаление с помощью SQL UPDATE (без ORM)
   @Post('appliances/delete')
-  @Redirect('/catalog', 302)
+  @Redirect('/appliances-catalog', 302)
   async deleteAppliance(@Body('id') id: string) {
     const applianceId = parseInt(id, 10);
     if (!isNaN(applianceId)) {

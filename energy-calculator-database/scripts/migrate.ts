@@ -14,13 +14,28 @@ const dataSource = new DataSource({
   password: process.env.DB_PASSWORD || 'postgrespassword',
   database: process.env.DB_DATABASE || 'appliances_db',
   entities: [User, Appliance, Like],
-  synchronize: true, // Создаст таблицы автоматически на основе entities
+  synchronize: false, // не синкать при initialize — сначала DROP
 });
 
 async function run() {
   await dataSource.initialize();
-  await dataSource.synchronize();
-  console.log('Таблицы в БД успешно созданы!');
+
+  // Старые столбцы/ключи несовместимы с новой ER — пересоздаём таблицы
+  await dataSource.query('DROP TABLE IF EXISTS likes CASCADE');
+  await dataSource.query('DROP TABLE IF EXISTS appliances CASCADE');
+  await dataSource.query('DROP TABLE IF EXISTS users CASCADE');
+
+  await dataSource.synchronize(true);
+
+  await dataSource.getRepository(User).save({
+    userName: 'demo',
+    email: 'demo@example.com',
+    password: 'demo',
+  });
+
+  console.log(
+    'Таблицы пересозданы по ER-диаграмме, пользователь demo (user_id=1) добавлен.',
+  );
   await dataSource.destroy();
   process.exit(0);
 }

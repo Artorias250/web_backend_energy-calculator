@@ -2,7 +2,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  CreateDateColumn,
   ManyToOne,
   OneToMany,
   JoinColumn,
@@ -12,39 +11,41 @@ import { Like } from './like.entity';
 
 @Entity('appliances')
 export class Appliance {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn({ name: 'appliance_id' })
+  applianceId: number;
 
-  @Column({ type: 'varchar', length: 150 })
-  title: string;
+  @Column({ type: 'varchar', length: 256, name: 'appliance_name' })
+  applianceName: string;
 
-  @Column({ type: 'text', nullable: true })
-  description: string;
+  @Column({
+    type: 'text',
+    nullable: true,
+    name: 'appliance_description',
+  })
+  applianceDescription: string | null;
 
   @Column({
     type: 'varchar',
-    length: 20,
+    length: 32,
     default: 'draft',
+    name: 'publication_status',
   })
-  status: 'draft' | 'published' | 'deleted';
+  publicationStatus: 'draft' | 'published' | 'deleted';
 
-  @Column({ type: 'varchar', length: 500, nullable: true, name: 'image_url' })
-  imageUrl: string;
+  @Column({ type: 'varchar', length: 512, nullable: true, name: 'image_url' })
+  imageUrl: string | null;
 
-  @Column({ type: 'varchar', length: 500, nullable: true, name: 'video_url' })
-  videoUrl: string;
+  @Column({ type: 'varchar', length: 512, nullable: true, name: 'video_url' })
+  videoUrl: string | null;
 
   @Column({ type: 'int', nullable: true, name: 'power_watts' })
-  powerWatts: number;
+  powerWatts: number | null;
 
   @Column({ type: 'int', nullable: true, name: 'min_temperature' })
-  minTemperature: number;
-
-  @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
-  createdAt: Date;
+  minTemperature: number | null;
 
   @Column({ type: 'timestamp', nullable: true, name: 'formatted_at' })
-  formattedAt: Date;
+  formattedAt: Date | null;
 
   @Column({ name: 'creator_id' })
   creatorId: number;
@@ -53,6 +54,6 @@ export class Appliance {
   @JoinColumn({ name: 'creator_id' })
   creator: User;
 
-  @OneToMany(() => Like, (like) => like.service)
+  @OneToMany(() => Like, (like) => like.appliance)
   likes: Like[];
 }

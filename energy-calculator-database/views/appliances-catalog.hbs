@@ -5,7 +5,7 @@
         <div class="catalog-content">
             <h2 class="catalog-title">Каталог приборов</h2>
 
-            <form class="filter-form" action="/catalog" method="GET">
+            <form class="filter-form" action="/appliances-catalog" method="GET">
                 <div class="filter-input-row">
                     <input
                         type="text"
@@ -48,7 +48,7 @@
                         <img src="{{this.imageUrl}}" alt="{{this.deviceName}}" class="card-image" />
                     </div>
                     <div class="card-info">
-                        <a href="/feed/{{this.id}}" class="card-title-link">
+                        <a href="/appliances-feed/{{this.id}}" class="card-title-link">
                             {{this.deviceName}}
                         </a>
 

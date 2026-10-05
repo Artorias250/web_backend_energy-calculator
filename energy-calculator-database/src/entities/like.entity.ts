@@ -10,16 +10,16 @@ import { User } from './user.entity';
 import { Appliance } from './appliance.entity';
 
 @Entity('likes')
-@Unique(['userId', 'serviceId'])
+@Unique(['userId', 'applianceId'])
 export class Like {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn({ name: 'like_id' })
+  likeId: number;
 
   @Column({ name: 'user_id' })
   userId: number;
 
-  @Column({ name: 'service_id' })
-  serviceId: number;
+  @Column({ name: 'appliance_id' })
+  applianceId: number;
 
   @ManyToOne(() => User, (user) => user.likes, { onDelete: 'RESTRICT' })
   @JoinColumn({ name: 'user_id' })
@@ -28,6 +28,6 @@ export class Like {
   @ManyToOne(() => Appliance, (appliance) => appliance.likes, {
     onDelete: 'RESTRICT',
   })
-  @JoinColumn({ name: 'service_id' })
-  service: Appliance;
+  @JoinColumn({ name: 'appliance_id' })
+  appliance: Appliance;
 }
