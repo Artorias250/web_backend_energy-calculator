@@ -1,0 +1,122 @@
+{
+  "info": {
+    "name": "Лабораторная 3. Приборы",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "applianceId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. GET список с фильтром",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/appliances?minPower=100"
+      }
+    },
+    {
+      "name": "2. POST услуга с картинкой и видео",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "applianceName", "type": "text", "value": "Новый чайник" },
+            { "key": "description", "type": "text", "value": "Чайник для кипячения воды" },
+            { "key": "powerWatts", "type": "text", "value": "2200" },
+            { "key": "minTemperature", "type": "text", "value": "5" },
+            { "key": "image", "type": "file", "src": "" },
+            { "key": "video", "type": "file", "src": "" }
+          ]
+        },
+        "url": "{{baseUrl}}/api/appliances"
+      }
+    },
+    {
+      "name": "3. GET черновик",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/appliances/draft"
+      }
+    },
+    {
+      "name": "4. PUT публикация",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"Чайник для кипячения воды\",\n  \"powerWatts\": 2200,\n  \"minTemperature\": 5\n}"
+        },
+        "url": "{{baseUrl}}/api/appliances/draft"
+      }
+    },
+    {
+      "name": "5. GET лента без id",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/appliances/feed"
+      }
+    },
+    {
+      "name": "6. GET лента по id next",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/appliances/feed/{{applianceId}}?next=true"
+      }
+    },
+    {
+      "name": "7. POST лайк",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"value\": 1\n}"
+        },
+        "url": "{{baseUrl}}/api/appliances/{{applianceId}}/like"
+      }
+    },
+    {
+      "name": "8. DELETE услуга",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/api/appliances/{{applianceId}}"
+      }
+    },
+    {
+      "name": "9. POST регистрация",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userName\": \"student\",\n  \"email\": \"student@example.com\",\n  \"password\": \"student\"\n}"
+        },
+        "url": "{{baseUrl}}/api/users/register"
+      }
+    },
+    {
+      "name": "10. POST аутентификация",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/users/login"
+      }
+    },
+    {
+      "name": "11. POST деавторизация",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/users/logout"
+      }
+    }
+  ]
+}
