@@ -10,13 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateApplianceDto = void 0;
-const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 class CreateApplianceDto {
     applianceName;
-    description;
-    powerWatts;
-    minTemperature;
 }
 exports.CreateApplianceDto = CreateApplianceDto;
 __decorate([
@@ -25,20 +21,4 @@ __decorate([
     (0, class_validator_1.MaxLength)(256),
     __metadata("design:type", String)
 ], CreateApplianceDto.prototype, "applianceName", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreateApplianceDto.prototype, "description", void 0);
-__decorate([
-    (0, class_transformer_1.Type)(() => Number),
-    (0, class_validator_1.IsInt)(),
-    (0, class_validator_1.Min)(0),
-    __metadata("design:type", Number)
-], CreateApplianceDto.prototype, "powerWatts", void 0);
-__decorate([
-    (0, class_transformer_1.Type)(() => Number),
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], CreateApplianceDto.prototype, "minTemperature", void 0);
 //# sourceMappingURL=create-appliance.dto.js.map

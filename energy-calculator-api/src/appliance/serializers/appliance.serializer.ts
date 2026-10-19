@@ -1,17 +1,20 @@
 import { Appliance } from '../../entities/appliance.entity';
 import { resolveMediaUrl } from '../../common/media-url';
 
-export class ApplianceResponse {
+export class CreateApplianceResponse {
   id: number;
   applianceName: string;
+  imageUrl: string;
+  videoUrl: string;
+}
+
+export class ApplianceResponse extends CreateApplianceResponse {
   description: string | null;
   publicationStatus: 'draft' | 'published' | 'deleted';
   powerWatts: number | null;
   minTemperature: number | null;
   imageFileName: string | null;
   videoFileName: string | null;
-  imageUrl: string;
-  videoUrl: string;
   likesCount: number;
   isOwner: 0 | 1;
   isLiked: 0 | 1;
@@ -20,6 +23,15 @@ export class ApplianceResponse {
 }
 
 export class ApplianceSerializer {
+  static toCreateResponse(appliance: Appliance): CreateApplianceResponse {
+    return {
+      id: appliance.applianceId,
+      applianceName: appliance.applianceName,
+      imageUrl: resolveMediaUrl(appliance.imageUrl, 'image'),
+      videoUrl: resolveMediaUrl(appliance.videoUrl, 'video'),
+    };
+  }
+
   static toResponse(
     appliance: Appliance,
     currentUserId: number,

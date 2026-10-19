@@ -76,7 +76,13 @@ let ApplianceService = class ApplianceService {
     }
     async getFeedAppliance(id, next) {
         let appliance;
-        if (next) {
+        if (id === undefined) {
+            appliance = await this.publishedFeedQuery()
+                .orderBy('appliance.applianceId', 'ASC')
+                .take(1)
+                .getOne();
+        }
+        else if (next) {
             appliance = await this.findNextPublished(id);
         }
         else {

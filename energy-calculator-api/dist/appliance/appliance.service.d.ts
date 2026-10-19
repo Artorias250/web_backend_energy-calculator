@@ -31,7 +31,7 @@ export declare class ApplianceService {
         }[];
         totalCount: number;
     }>;
-    getFeedAppliance(id: number, next?: boolean): Promise<{
+    getFeedAppliance(id?: number, next?: boolean): Promise<{
         appliance: {
             id: number;
             deviceName: string;

@@ -18,6 +18,7 @@ import { PublishApplianceDto } from './dto/publish-appliance.dto';
 import {
   ApplianceResponse,
   ApplianceSerializer,
+  CreateApplianceResponse,
 } from './serializers/appliance.serializer';
 
 @Injectable()
@@ -62,7 +63,7 @@ export class ApplianceApiService {
     dto: CreateApplianceDto,
     image: Express.Multer.File,
     video: Express.Multer.File,
-  ): Promise<{ created: boolean; appliance: ApplianceResponse }> {
+  ): Promise<{ created: boolean; appliance: CreateApplianceResponse }> {
     const userId = getCurrentUserId();
     this.assertMedia(image, 'image');
     this.assertMedia(video, 'video');
@@ -88,12 +89,12 @@ export class ApplianceApiService {
     if (!draft) {
       draft = this.appliances.create({
         applianceName: dto.applianceName,
-        applianceDescription: dto.description,
+        applianceDescription: null,
         publicationStatus: 'draft',
         imageUrl: imageFileName,
         videoUrl: videoFileName,
-        powerWatts: dto.powerWatts,
-        minTemperature: dto.minTemperature,
+        powerWatts: null,
+        minTemperature: null,
         creatorId: userId,
         moderatorId: null,
         createdAt: new Date(),
@@ -102,9 +103,6 @@ export class ApplianceApiService {
       });
     } else {
       draft.applianceName = dto.applianceName;
-      draft.applianceDescription = dto.description;
-      draft.powerWatts = dto.powerWatts;
-      draft.minTemperature = dto.minTemperature;
       draft.imageUrl = imageFileName;
       draft.videoUrl = videoFileName;
     }
@@ -113,10 +111,9 @@ export class ApplianceApiService {
     await this.removeReplacedObject(previousImage);
     await this.removeReplacedObject(previousVideo);
 
-    const withLikes = await this.appliances.findDraft(userId);
     return {
       created,
-      appliance: ApplianceSerializer.toResponse(withLikes ?? saved, userId),
+      appliance: ApplianceSerializer.toCreateResponse(saved),
     };
   }
 

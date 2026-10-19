@@ -30,6 +30,34 @@ export declare class ApplianceController {
         search: string;
         minPower: number;
     }>;
+    getFirstFeed(): Promise<{
+        appliance: {
+            id: number;
+            deviceName: string;
+            description: string | null;
+            imageUrl: string;
+            videoUrl: string;
+            likes: import("../entities/like.entity").Like[];
+            likesCount: number;
+            applianceId: number;
+            applianceName: string;
+            applianceDescription: string | null;
+            publicationStatus: "draft" | "published" | "deleted";
+            powerWatts: number | null;
+            minTemperature: number | null;
+            createdAt: Date | null;
+            formattedAt: Date | null;
+            completedAt: Date | null;
+            creatorId: number;
+            moderatorId: number | null;
+            creator: import("../entities/user.entity").User;
+            moderator: import("../entities/user.entity").User | null;
+        };
+        nextId: number;
+        hasNext: boolean;
+        title: string;
+        isFeed: boolean;
+    }>;
     getFeed(id: number, next?: string): Promise<{
         appliance: {
             id: number;

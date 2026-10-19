@@ -74,10 +74,15 @@ export class ApplianceService {
     };
   }
 
-  async getFeedAppliance(id: number, next?: boolean) {
+  async getFeedAppliance(id?: number, next?: boolean) {
     let appliance: Appliance | null;
 
-    if (next) {
+    if (id === undefined) {
+      appliance = await this.publishedFeedQuery()
+        .orderBy('appliance.applianceId', 'ASC')
+        .take(1)
+        .getOne();
+    } else if (next) {
       appliance = await this.findNextPublished(id);
     } else {
       appliance = await this.publishedFeedQuery()

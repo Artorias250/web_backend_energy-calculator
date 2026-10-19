@@ -1,18 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ApplianceSerializer = exports.ApplianceResponse = void 0;
+exports.ApplianceSerializer = exports.ApplianceResponse = exports.CreateApplianceResponse = void 0;
 const media_url_1 = require("../../common/media-url");
-class ApplianceResponse {
+class CreateApplianceResponse {
     id;
     applianceName;
+    imageUrl;
+    videoUrl;
+}
+exports.CreateApplianceResponse = CreateApplianceResponse;
+class ApplianceResponse extends CreateApplianceResponse {
     description;
     publicationStatus;
     powerWatts;
     minTemperature;
     imageFileName;
     videoFileName;
-    imageUrl;
-    videoUrl;
     likesCount;
     isOwner;
     isLiked;
@@ -21,6 +24,14 @@ class ApplianceResponse {
 }
 exports.ApplianceResponse = ApplianceResponse;
 class ApplianceSerializer {
+    static toCreateResponse(appliance) {
+        return {
+            id: appliance.applianceId,
+            applianceName: appliance.applianceName,
+            imageUrl: (0, media_url_1.resolveMediaUrl)(appliance.imageUrl, 'image'),
+            videoUrl: (0, media_url_1.resolveMediaUrl)(appliance.videoUrl, 'video'),
+        };
+    }
     static toResponse(appliance, currentUserId) {
         const likes = appliance.likes || [];
         return {

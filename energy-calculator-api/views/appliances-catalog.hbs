@@ -6,37 +6,27 @@
             <h2 class="catalog-title">Каталог приборов</h2>
 
             <form class="filter-form" action="/appliances-catalog" method="GET">
+                <label for="powerRange">Мин. мощность (Вт)</label>
                 <div class="filter-input-row">
                     <input
                         type="text"
-                        id="powerValueDisplay"
                         class="filter-input"
-                        value="{{#if minPower}}Мин. мощность: {{minPower}} Вт{{else}}Мин. мощность: 0 Вт{{/if}}"
+                        aria-label="Применённая минимальная мощность"
+                        value="Мин. мощность: {{minPower}} Вт"
                         readonly
                     />
                     <button type="submit" class="btn-filter-ok">ОК</button>
                 </div>
-
-                <input
-                    type="hidden"
-                    name="minPower"
-                    id="powerHiddenInput"
-                    value="{{#if minPower}}{{minPower}}{{else}}0{{/if}}"
-                />
-
                 <div class="filter-slider-row">
                     <input
                         type="range"
                         id="powerRange"
+                        name="minPower"
                         class="filter-range-slider"
                         min="0"
                         max="3000"
                         step="50"
-                        value="{{#if minPower}}{{minPower}}{{else}}0{{/if}}"
-                        oninput="
-                            document.getElementById('powerValueDisplay').value = 'Мин. мощность: ' + this.value + ' Вт';
-                            document.getElementById('powerHiddenInput').value = this.value;
-                        "
+                        value="{{minPower}}"
                     />
                 </div>
             </form>

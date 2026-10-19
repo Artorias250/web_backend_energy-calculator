@@ -31,6 +31,14 @@ let ApplianceController = class ApplianceController {
             minPower: powerNum,
         };
     }
+    async getFirstFeed() {
+        const data = await this.applianceService.getFeedAppliance();
+        return {
+            title: 'Лента приборов',
+            isFeed: true,
+            ...data,
+        };
+    }
     async getFeed(id, next) {
         const isNext = next === 'true';
         const data = await this.applianceService.getFeedAppliance(id, isNext);
@@ -76,6 +84,13 @@ __decorate([
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], ApplianceController.prototype, "getCatalog", null);
+__decorate([
+    (0, common_1.Get)('appliances-feed'),
+    (0, common_1.Render)('appliances-feed'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ApplianceController.prototype, "getFirstFeed", null);
 __decorate([
     (0, common_1.Get)('appliances-feed/:id'),
     (0, common_1.Render)('appliances-feed'),

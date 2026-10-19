@@ -38,6 +38,18 @@ export class ApplianceController {
   }
 
   // Метод 2 (GET): Просмотр карточки
+  @Get('appliances-feed')
+  @Render('appliances-feed')
+  async getFirstFeed() {
+    const data = await this.applianceService.getFeedAppliance();
+
+    return {
+      title: 'Лента приборов',
+      isFeed: true,
+      ...data,
+    };
+  }
+
   @Get('appliances-feed/:id')
   @Render('appliances-feed')
   async getFeed(

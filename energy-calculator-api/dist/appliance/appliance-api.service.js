@@ -69,12 +69,12 @@ let ApplianceApiService = class ApplianceApiService {
         if (!draft) {
             draft = this.appliances.create({
                 applianceName: dto.applianceName,
-                applianceDescription: dto.description,
+                applianceDescription: null,
                 publicationStatus: 'draft',
                 imageUrl: imageFileName,
                 videoUrl: videoFileName,
-                powerWatts: dto.powerWatts,
-                minTemperature: dto.minTemperature,
+                powerWatts: null,
+                minTemperature: null,
                 creatorId: userId,
                 moderatorId: null,
                 createdAt: new Date(),
@@ -84,19 +84,15 @@ let ApplianceApiService = class ApplianceApiService {
         }
         else {
             draft.applianceName = dto.applianceName;
-            draft.applianceDescription = dto.description;
-            draft.powerWatts = dto.powerWatts;
-            draft.minTemperature = dto.minTemperature;
             draft.imageUrl = imageFileName;
             draft.videoUrl = videoFileName;
         }
         const saved = await this.appliances.save(draft);
         await this.removeReplacedObject(previousImage);
         await this.removeReplacedObject(previousVideo);
-        const withLikes = await this.appliances.findDraft(userId);
         return {
             created,
-            appliance: appliance_serializer_1.ApplianceSerializer.toResponse(withLikes ?? saved, userId),
+            appliance: appliance_serializer_1.ApplianceSerializer.toCreateResponse(saved),
         };
     }
     async publish(dto) {

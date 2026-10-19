@@ -14,7 +14,7 @@ export declare class ApplianceApiController {
     create(dto: CreateApplianceDto, files: {
         image?: Express.Multer.File[];
         video?: Express.Multer.File[];
-    }, response: Response): Promise<import("./serializers/appliance.serializer").ApplianceResponse>;
+    }, response: Response): Promise<import("./serializers/appliance.serializer").CreateApplianceResponse>;
     publish(dto: PublishApplianceDto): Promise<import("./serializers/appliance.serializer").ApplianceResponse>;
     remove(id: number): Promise<{
         message: string;

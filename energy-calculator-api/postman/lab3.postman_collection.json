@@ -30,9 +30,6 @@
           "mode": "formdata",
           "formdata": [
             { "key": "applianceName", "type": "text", "value": "Новый чайник" },
-            { "key": "description", "type": "text", "value": "Чайник для кипячения воды" },
-            { "key": "powerWatts", "type": "text", "value": "2200" },
-            { "key": "minTemperature", "type": "text", "value": "5" },
             { "key": "image", "type": "file", "src": "" },
             { "key": "video", "type": "file", "src": "" }
           ]

@@ -2,7 +2,7 @@ import { MinioService } from '../minio/minio.service';
 import { ApplianceRepository } from './appliance.repository';
 import { CreateApplianceDto } from './dto/create-appliance.dto';
 import { PublishApplianceDto } from './dto/publish-appliance.dto';
-import { ApplianceResponse } from './serializers/appliance.serializer';
+import { ApplianceResponse, CreateApplianceResponse } from './serializers/appliance.serializer';
 export declare class ApplianceApiService {
     private readonly appliances;
     private readonly minioService;
@@ -12,7 +12,7 @@ export declare class ApplianceApiService {
     getDraft(): Promise<ApplianceResponse>;
     createWithFiles(dto: CreateApplianceDto, image: Express.Multer.File, video: Express.Multer.File): Promise<{
         created: boolean;
-        appliance: ApplianceResponse;
+        appliance: CreateApplianceResponse;
     }>;
     publish(dto: PublishApplianceDto): Promise<ApplianceResponse>;
     softDelete(id: number): Promise<{
